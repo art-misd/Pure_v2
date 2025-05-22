@@ -1,9 +1,7 @@
 
 //Config
 var Config = null;
-
- init_config();
-
+var isInfo = false;
 
 function init_config(){
     Config = new Object();
@@ -13,8 +11,12 @@ function init_config(){
 function OnLoadInfo(data)
 {
     $('#server_info').text(data.server_info);
+    $('#track_inf').text(data.track_inf);
+    $('#track_img').attr("src",data.track_img);
     if(data.need_down)
         setTimeout(UpdateInfo, 2000);
+    else if(isInfo)
+    	  setTimeout(UpdateInfo, 5000);
 }
 
 function UpdateInfo()
@@ -104,7 +106,7 @@ function OnLoadConfig(data)
       $('#status tr.playing').show();
       $('#stat_play_file').text(Config.stat_file);
       $('#stat_period_size').text(Config.stat_period_size);
-      $('#stat_buffer_size').text(Config.stat_buffer_size);
+      $('#stat_buffer_size').text(Config.stat_buffer_size.toString() + " frames, "+ (Config.stat_period_size?Config.stat_period_time*Config.stat_buffer_size/Config.stat_period_size:0).toString() + " µs");  
       $('#stat_vol').text(Config.stat_vol > -1 ? Config.stat_vol : 'disabled');
       $('#stat_freq').text(Config.stat_freq);
       $('#stat_bps').text(Config.stat_bps);    
@@ -184,7 +186,7 @@ function OnLoadConfig(data)
       $('#hwlist').append(new Option(element, nn++));    
         }, Config.hw_list);
         if (nn) {
-        	           $('#hwvolume').css('display','inline');
+        	           $('#hwvolume').css('display','inline-block');
   						  $('#lhw').css('display','inline');
   						  $('#hwlist').css('display','inline');			  
   						  $('#hwlist').val('0');	  
@@ -197,11 +199,17 @@ function OnLoadConfig(data)
       if(nn> Config.hw_index) 			
            $('#hwlist').val(Config.hw_index.toString());
  	$('#att').val(Config.att.toString());  
+ 	$('#renname').val(Config.ren_name.toString()); 
+ 	$('#ch_scr').prop('checked',Config.ch_scr ? 'checked' : '');
+   $('#ch_tcp').prop('checked',Config.ch_tcp ? 'checked' : '');
+   $('#ip_scr').val(Config.ip_scr.toString());  
+   $('#pt_scr').val(Config.pt_scr.toString());  
     var tabs = $('#tabs');
     $('.tabs-content > div', tabs).each(function(i){
         if ( i != 0 ) $(this).hide(0);
     });
     tabs.on('click', '.tabs a', function(e){
+		  isInfo = false;        
         e.preventDefault();
         var tabId = $(this).attr('href');
         $('.tabs a',tabs).removeClass();
@@ -209,10 +217,16 @@ function OnLoadConfig(data)
         $('.tabs-content > div', tabs).hide(0);
         if(tabId.toString() == "#status")
               $.getJSON('?GetConfig', OnLoadStatus);
+        if(tabId.toString() == "#info")
+				{ 
+				  isInfo = true;             
+              UpdateInfo();
+            }
         $(tabId).show();
     });
     if(Config.need_down)
             setTimeout(UpdateInfo, 2000);
+    $('#config_body').css('visibility', 'visible');
 }
 
 function OnLoadStatus(data)
@@ -232,7 +246,7 @@ function OnLoadStatus(data)
       $('#status tr.playing').show();
       $('#stat_play_file').text(Config.stat_file);
       $('#stat_period_size').text(Config.stat_period_size+" frames, "+ Config.stat_period_time+" µs");
-      $('#stat_buffer_size').text(Config.stat_buffer_size + " frames, "+ Config.stat_period_time*Config.stat_buffer_size/Config.stat_period_size  + " µs");
+      $('#stat_buffer_size').text(Config.stat_buffer_size.toString() + " frames, "+ (Config.stat_period_size?Config.stat_period_time*Config.stat_buffer_size/Config.stat_period_size:0).toString() + " µs");     
       $('#stat_vol').text(Config.stat_vol > -1 ? Config.stat_vol : 'disabled');      
       $('#stat_freq').text(Config.stat_freq);
       $('#stat_bps').text(Config.stat_bps);    
@@ -367,6 +381,11 @@ function SaveConfig()
     arr['hw_index'] = hwind;
     arr['hw_volume'] = $('#hwvolume').is(':checked') ? true : false;  
     arr['att'] = parseInt($('#att').val());
+    arr['ren_name'] = $('#renname').val();
+    arr['ch_scr'] = $('#ch_scr').is(':checked') ? 1 : 0; 
+    arr['ch_tcp'] = $('#ch_tcp').is(':checked') ? 1 : 0; 
+    arr['ip_scr'] =  $('#ip_scr').val(); 
+    arr['pt_scr'] =parseInt($('#pt_scr').val());   
     $.ajax({
             url:'SetConfig',
             type:'POST',

@@ -6,10 +6,10 @@
 <script src="renderer.js"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>APlayer Media Renderer 2.10</title>
+<title>APlayer Media Renderer 2.17</title>
 </head>
-<body>
-<div id="config_body" style="width:480px;height:530px">
+<body onload="init_config()">
+<div id="config_body" style="width:480px;height:530px;visibility:hidden">
 <div class="wrapper">
   <div id="header">
     <h3>
@@ -21,15 +21,16 @@
       <li class="tab active"><a href="#general" class="active">General</a></li>
       <li class="tab"><a href="#decoder">DSD</a></li>
       <li class="tab"><a href="#dsp">DSP</a></li>
-      <li class="tab" style="display:none" id="convtab"><a href="#conv">Convolver</a></li>
+      <li class="tab" style="display:none" id="convtab"><a href="#conv">Conv</a></li>
       <li class="tab"><a href="#system">System</a></li>
       <li class="tab"><a href="#status">Status</a></li>
+      <li class="tab"><a href="#info">Info</a></li>
       <li class="tab"><a href="#card">Card</a></li>
     </ul>
     <div class="tabs-content">
 <div id="general">        
 <table class="conf_section">
-  <tr><td>Play silence (ms) <input id="silence" class="val" type="text"> <span id="td16"><input id="check_16bit" type="checkbox"> 16bit output</span>&nbsp;&nbsp;<span id="td24"><input id="check_24bit" type="checkbox"> 24bit output</span></td></tr>
+  <tr><td>Name <input id="renname" class="val2" type="text" size="10"> Play silence (ms) <input id="silence" class="val" type="text"> <span id="td16"><input id="check_16bit" type="checkbox"> 16bit output</span>&nbsp;&nbsp;<span id="td24"><input id="check_24bit" type="checkbox"> 24bit output</span></td></tr>
   <tr><td>
     <table class="conf_section3">
     <tr><td colspan=2 style="width:180px">Playback mode</td><td style="width:20px">&nbsp;</td><td colspan="2">Preload buffer (frames)</td></tr>
@@ -253,15 +254,7 @@
     <span>Filters:</span>
     <p id="filters" style="padding:8px;border:1px solid gray;width:400px;height:100px;overflow-y:auto;margin:8px"></p>
   Select filter:  <input type="text" id="FilterNum" style="width:24px"><br><br>  
-  Attenuation: <input style="width:300px;height:10px" id="db" onchange="AttChange(this.value)" type="range" min="-60" max="60" step="0.5" list="tickmarks"> <span id="dbtx">0</span>dB<br>
-<!--  <datalist id="tickmarks">
-    <option value="-60" label="-60dB"><option value="-11"><option value="-10"><option value="-9"><option value="-8">
-    <option value="-7"><option value="-6"><option value="-5"><option value="-4"><option value="-3"><option value="-2">
-    <option value="-1"><option value="0" label="0dB"><option value="1"><option value="2"><option value="3"><option value="4">
-    <option value="5"><option value="6"><option value="7"><option value="8"><option value="9"><option value="10">
-    <option value="11"><option value="12"  label="12dB">
-  </datalist>  
--->
+  Attenuation: <input style="width:300px;height:10px" id="db" onchange="AttChange(this.value)" type="range" min="-60" max="60" step="0.5"> <span id="dbtx">0</span>dB<br> 
   <p id="filtdesc"></p>
 </div>
 <div id="system">
@@ -301,12 +294,28 @@
    <tr class="playing"><td>ALSA Buffer:</td><td style="width:8px">&nbsp;</td><td id="stat_buffer_size"></td></tr>
 </table>   
 </div>
-<div id="card">    
+<div id="info">
+<table style="width:470px;text-align:left;margin:6px">
+   <tr style="overflow:hidden;height:34px"><td style="width:70px">Track info:</td><td id="track_inf"></td></tr>
+   <tr><td colspan="2"><img id="track_img" style="width:300px;height:300px;display:block;margin-left:auto;margin-right:auto" src=""></td></tr>
+</table>   
+</div>
+<div id="card" style="width:400px;">    
+<table><tr>
+<td width="300">
   <span>/etc/asound.conf:</span>
-  <p id="asound" style="padding:8px;border:1px solid gray;width:340px;height:100px;overflow-y:auto;margin:8px"></p>
+  <p id="asound" style="padding:8px;border:1px solid gray;width:300px;height:100px;overflow-y:auto;margin:8px"></p>
 <span>Available cards:</span>
-  <p id="cards" style="padding:8px;border:1px solid gray;width:340px;height:100px;overflow-y:auto;margin:8px"></p>
-Select card:  <input type="text" id="CardNum" style="width:24px">
+  <p id="cards" style="padding:4px;border:1px solid gray;width:300px;height:100px;overflow-y:auto;margin:8px"></p>
+Select card:  <input type="text" id="CardNum" style="width:24px">  
+</td>
+<td style="width:100px;height:252px;vertical-align:top;padding-top: 26px;"><p style="padding:4px;width:100px;height:180px;border:1px solid gray;margin:4px">
+   <input id="ch_scr" type="checkbox"> <label for="ch_scr"> Scream</label><br>
+   <input id="ch_tcp" type="checkbox"> <label for="ch_tcp"> TCP</label><br>
+   <br>Receiver IP<br><input id="ip_scr" style="width:86px;" type="text"><br>
+   Port<br><input id="pt_scr" class="val" type="text"><br>
+   </p></td>
+</tr></table>
 </div>
 </div>
 </div>

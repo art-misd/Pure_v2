@@ -405,7 +405,7 @@ $filename = "/tmp/update/";
 		rm /etc/init.d/S95* ;
 		/etc/rc.pure/S95tidal stop ;
 		cp /etc/rc.pure/S95scream /etc/init.d/ && sync ; 
-		nohup /usr/sbin/scream > /dev/null 2>&1 &
+		nohup chrt -f 40 /usr/sbin/scream > /dev/null 2>&1 &
 		/opt/unmute.sh ` ; 
 		}
 		echo '<script type="text/javascript">removeSelButtons();</script>';
