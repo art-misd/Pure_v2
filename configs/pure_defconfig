@@ -1,11 +1,11 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Buildroot -g30f48ec-dirty Configuration
+# Buildroot -g8772323 Configuration
 #
 BR2_HAVE_DOT_CONFIG=y
 BR2_EXTERNAL_NAMES="PURE"
 BR2_EXTERNAL_PURE_PATH="/home/art/bbb/Pure_v2"
-BR2_EXTERNAL_PURE_VERSION="-g30f48ec-dirty"
+BR2_EXTERNAL_PURE_VERSION="-g8772323"
 BR2_HOST_GCC_AT_LEAST_4_9=y
 BR2_HOST_GCC_AT_LEAST_5=y
 BR2_HOST_GCC_AT_LEAST_6=y
@@ -211,8 +211,8 @@ BR2_TOOLCHAIN_SUPPORTS_PIE=y
 # BR2_TOOLCHAIN_GLIBC_GCONV_LIBS_COPY is not set
 BR2_TOOLCHAIN_EXTRA_LIBS=""
 BR2_TOOLCHAIN_HAS_FULL_GETTEXT=y
-BR2_TARGET_OPTIMIZATION="-mtune=cortex-a8 -mcpu=cortex-a8 -mfloat-abi=hard -Os -ftree-vectorize -funsafe-math-optimizations -fomit-frame-pointer"
-BR2_TARGET_LDFLAGS="-Wl,--gc-sections -Wl,--strip-all -Wl,-O1 -Wl,--as-needed"
+BR2_TARGET_OPTIMIZATION="-mtune=cortex-a8 -mcpu=cortex-a8 -mfloat-abi=hard -O2 -ftree-vectorize -funsafe-math-optimizations -fomit-frame-pointer"
+BR2_TARGET_LDFLAGS="-Wl,--gc-sections -Wl,--strip-all -Wl,-O2 -Wl,--as-needed"
 BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_0=y
 BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_1=y
 BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_2=y
@@ -502,12 +502,16 @@ BR2_LINUX_KERNEL_NEEDS_HOST_OPENSSL=y
 #
 # Linux Kernel Tools
 #
+BR2_PACKAGE_LINUX_TOOLS=y
 # BR2_PACKAGE_LINUX_TOOLS_CPUPOWER is not set
-# BR2_PACKAGE_LINUX_TOOLS_GPIO is not set
+BR2_PACKAGE_LINUX_TOOLS_GPIO=y
 # BR2_PACKAGE_LINUX_TOOLS_IIO is not set
 # BR2_PACKAGE_LINUX_TOOLS_MM is not set
 # BR2_PACKAGE_LINUX_TOOLS_PCI is not set
-# BR2_PACKAGE_LINUX_TOOLS_PERF is not set
+BR2_PACKAGE_LINUX_TOOLS_PERF=y
+BR2_PACKAGE_LINUX_TOOLS_PERF_SCRIPTS=y
+BR2_PACKAGE_LINUX_TOOLS_PERF_TUI=y
+# BR2_PACKAGE_LINUX_TOOLS_PERF_NEEDS_HOST_PYTHON3 is not set
 # BR2_PACKAGE_LINUX_TOOLS_RTLA is not set
 
 #
@@ -2654,7 +2658,8 @@ BR2_PACKAGE_POPT=y
 # BR2_PACKAGE_RE2 is not set
 BR2_PACKAGE_READLINE=y
 # BR2_PACKAGE_READLINE_BRACKETED_PASTE is not set
-# BR2_PACKAGE_SLANG is not set
+BR2_PACKAGE_SLANG=y
+# BR2_PACKAGE_SLANG_SLSH is not set
 # BR2_PACKAGE_TCLAP is not set
 # BR2_PACKAGE_TERMCOLOR is not set
 # BR2_PACKAGE_UTF8PROC is not set

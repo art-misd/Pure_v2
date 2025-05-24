@@ -3,7 +3,7 @@
 start() {
     printf "Starting NAA: "
     /usr/sbin/networkaudiod > /dev/null 2>&1 &
-    renice -15 `pidof networkaudiod`
+    chrt -f 40 `pidof networkaudiod`
     }
 stop() {
     killall -9 networkaudiod
