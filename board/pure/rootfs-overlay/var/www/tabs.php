@@ -300,7 +300,7 @@ $filename = "/tmp/update/";
 						
 						
 						<div class='row'>
-								<span class="title">ver. 09.05.2024</span>
+								<span class="title">ver.</span>
 								<div id='upd'>
 									<form method="post">
 										<?php
