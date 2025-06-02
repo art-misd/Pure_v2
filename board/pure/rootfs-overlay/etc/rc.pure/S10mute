@@ -3,7 +3,7 @@
 case "$1" in
   start)
     printf "Starting mute: "
-    start-stop-daemon -S -q -x nice -n 10 /opt/mutedsc2.sh &
+    start-stop-daemon -S -q -x nice -n 10 /opt/mute.sh &
     [ $? = 0 ] && echo "OK" || echo "FAIL"
     ;;
   stop)

@@ -8,6 +8,7 @@ sed -i 's/BOTIC/USB/' /boot/uEnv.txt
 echo USB > /etc/output
 chattr +i /etc/asound.conf
 sync
+sleep 1
 reboot -f
 
 

@@ -1,15 +1,16 @@
-
+<!DOCTYPE html>
 <head>
 <title>Pure Tweaks</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Cache-Control" content="no-cache" />
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 <link type="text/css" rel="stylesheet" href="style.css">
 <script src="javascript.js"></script>
 <?php
 $update = 0;
+$raatData = '';
 include 'variables.php';
+include 'raatConfig.php';
 $checked = array();
 $audioDataDisplay='none';
 $rebootButtonDisplay='none';
@@ -79,7 +80,6 @@ foreach(range(0, 1) as $rating){
 			</tr>
 			<tr>
 				<td colspan=4 id='contentCell' >
-
 					<div id='superuserSel'>
 						<div class='row'>
 						</div>
@@ -100,11 +100,34 @@ foreach(range(0, 1) as $rating){
 											</label>
 										</div>
 										<div class="row">
-											<input type="submit" id="editPluginsText" name="editPlugins" value="Save" class="selButtonText"/>
+											<input type="submit" id="editPluginsText" name="editPlugins" value="Edit plugins" class="selButtonText"/>
 										</div>
 									</form>
 								</div>
-							</div>
+              </div>
+              <div id='raatconfig'>
+                <span class="title">Raat config:</span>
+                <div>
+									<form method="post" action="submitRaat.php">
+                    <div class="row">
+                      <span>Dsd mode: </span>
+                      <label class="dsdswitch">
+                        <input type="hidden" name="empty" value="1"/>
+                        <input type="radio" id="dop" name="dsdmode" value="DoP" <?php echo $checked[0]; ?>><label class="dsdlable" for="dop">DoP</label>
+                        <span>/</span>
+												<input type="radio" id="native" name="dsdmode" value="Native" <?php echo $checked[1]; ?>><label class="dsdlable" for="native">Native</label>
+                      </label>
+											<label>
+												<input type="checkbox" id="raatvolume" name="rvolume" value="1" <?php echo $checked[1]; ?>>
+												Volume control
+											</label>
+										</div>
+										<div class="row">
+											<input type="button" onclick="submitRaat()" value="Edit Raat" class="selButtonText"/>
+										</div>
+									</form>
+                </div>
+              </div>
 						</div>
 						<div class='row'>
 							<div id='ipSet'>
@@ -116,7 +139,8 @@ foreach(range(0, 1) as $rating){
   									</div>
                   </div>
 									<form method="post" action="" onkeydown="return event.key != 'Enter';">
-										<div>
+                    <div>
+                      <!--Frames for static address (IP/Mask/Gateway)-->
 											<div class="row">
 								                <div class="cellLabel">IP: </div>
 								                <div class="cellField"><input type="text" id="ip1" name="address[]" maxlength="3"/></div>
@@ -147,16 +171,6 @@ foreach(range(0, 1) as $rating){
 								                <div class="cellText">.</div>
 								                <div class="cellField"><input type="text" id="gateway4" name="address[]" maxlength="3"/></div>
 								            </div>
-								            <!--<div class="row">
-								                <div class="cellLabel">DNS: </div>
-								                <div class="cellField"><input type="text" id="dns1" name="address[]" maxlength="3"/></div>
-								                <div class="cellText">.</div>
-								                <div class="cellField"><input type="text" id="dns2" name="address[]" maxlength="3"/></div>
-								                <div class="cellText">.</div>
-								                <div class="cellField"><input type="text" id="dns3" name="address[]" maxlength="3"/></div>
-								                <div class="cellText">.</div>
-								                <div class="cellField"><input type="text" id="dns4" name="address[]" maxlength="3"/></div>
-								            </div>-->
 								            <div class="row">
 								            	<div class="cell"></div>
 								                <div class="cell"><input type="submit" id="removeIP" name="removeIP" value="Remove" class="selButtonText"/></div>
@@ -227,9 +241,7 @@ function showResult()
 			echo '<script type="text/javascript">updatePage();</script>';
 			echo '<script type="text/javascript">setTimeout(function() {window.location = window.location.href; }, 15000);</script>';
 		};
-	}
-
-	
+  }
 
 	if (isset($_POST['removeIP'])) {
 		$orderedItems = "auto lo\niface lo inet loopback\n\nauto eth0\n\n###### for DHCP ############\niface eth0 inet manual\n    pre-up /sbin/udhcpc -t 10 -q\n\n###### for static ip #######\n#iface eth0 inet static\n" . PHP_EOL;
@@ -273,12 +285,11 @@ function showResult()
 ?>
 
 <?php
-   	$text = file_get_contents('/boot/interfaces');
+  $text = file_get_contents('/boot/interfaces');
 	$text = explode("\n",$text);
 	$output = array();
-	foreach($text as $line)
-	{  
-	    $output[] = $line;
+	foreach($text as $line){  
+	  $output[] = $line;
 	}
 ?>
 
@@ -304,11 +315,6 @@ function showResult()
 			    return parseInt(item, 10);
 			});
 			app ="gateway"
-    	// } else if (nameArr[i].includes("dns")){
-    		// b = nameArr[i].split(/[ ]+/).pop().split('.').map(function(item) {
-			    // return parseInt(item, 10);
-			// });
-			// app ="dns"
     	}
     	if (app != null){
     		if (nameArr[i].startsWith('#')){
@@ -327,4 +333,86 @@ function showResult()
     	
 
 	}
+</script>
+
+<script type="text/javascript">
+  var parsedRaatData;
+  function getRaatData(){
+    var raatRawData = '<?= json_encode($raatData, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE); ?>';
+    var raatCleanData = raatRawData;
+    parsedRaatData = JSON.parse(raatCleanData.substring(1, raatCleanData.length-1));
+    var dsdMode = parsedRaatData.output.dsd_mode;
+    var volumeMode = parsedRaatData.volume.type;
+    if (dsdMode=="native"){
+      document.getElementById('native').checked = true;
+    } else if (dsdMode=="dop"){
+      document.getElementById('dop').checked = true;
+    }
+    if (volumeMode=="software"){
+      document.getElementById('raatvolume').checked = true;
+    } else if(volumeMode=="null"){
+      document.getElementById('raatvolume').checked = false;
+    }
+    document.addEventListener('input',(e)=>{
+      if(e.target.getAttribute('name')=="dsdmode"){
+        if (e.target.value=="Native"){
+          parsedRaatData.output.dsd_mode = "native";
+        } else if (e.target.value=="DoP"){
+          parsedRaatData.output.dsd_mode = "dop";
+        }
+        // console.log(e.target.value);
+        // console.log(parsedRaatData);
+        // document.cookie = 'raatData=' + parsedRaatData;
+      }
+      if(e.target.getAttribute('name')=="rvolume"){
+        if (e.target.checked){
+          parsedRaatData.volume.type = "software";
+        } else {
+          parsedRaatData.volume.type = "null";
+        } 
+        // document.cookie = 'raatData=' + parsedRaatData;
+        // console.log(parsedRaatData);
+      }
+    })
+    // $.each(words, function(key, value) {
+    // console.log('stuff : ' + key + ", " + value);
+    // });
+  };
+  window.onload = function() {
+    getRaatData();
+  };
+
+  function submitRaat() {
+    // var formData = new FormData();
+    // formData.append('jsonData', JSON.stringify(parsedRaatData));
+
+    // Create a new XMLHttpRequest object
+    var xhr = new XMLHttpRequest();
+
+    // Open a POST request to submit.php
+    xhr.open('POST', 'submitRaat.php', true);
+
+    // Set the appropriate headers
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    // Define what happens on successful data submission
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            console.log(xhr.responseText);
+            // Handle success
+        } else {
+            console.error(xhr.responseText);
+            // Handle error
+        }
+    };
+
+    // Define what happens in case of an error
+    xhr.onerror = function () {
+        console.error('Request failed.');
+    };
+
+    // Send the form data
+    xhr.send(JSON.stringify(parsedRaatData, null, 4));
+
+  };
 </script>

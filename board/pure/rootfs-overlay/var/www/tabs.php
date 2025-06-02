@@ -83,9 +83,9 @@ $filename = "/tmp/update/";
 										<?php
 										$a = `pidof mpd`;
 										if (empty($a)){
-										 echo '<input type="submit" name="mpdButton" value="" id="mpdButton" class="unselButton"/><input type="submit" id="mpdText" name="mpdButton" value="UPNP (MPD)" class="unselButtonText"/>';
+										 echo '<input type="submit" name="mpdButton" value="" id="mpdButton" class="unselButton"/><input type="submit" id="mpdText" name="mpdButton" value="OpenHome (MPD)" class="unselButtonText"/>';
 										} else {
-										 echo '<input type="submit" name="mpdButton" value="" id="mpdButton" class="selButton"/><input type="submit" id="mpdText" name="mpdButton" value="UPNP (MPD)" class="selButtonText"/>';
+										 echo '<input type="submit" name="mpdButton" value="" id="mpdButton" class="selButton"/><input type="submit" id="mpdText" name="mpdButton" value="OpenHome (MPD)" class="selButtonText"/>';
 										}
 										?>
 									</div>
@@ -180,6 +180,7 @@ $filename = "/tmp/update/";
                                                                                                 echo "<div class='buttonSpacer'><input type='submit' class='selOutputText' name='i2sOutput' value='I2S'/></div>";
                                                                                                 echo "<div class='buttonSpacer'><input type='submit' class='selOutputText' name='i2slrOutput' value='I2S(L/R)'/></div>";
                                                                                                 echo "<div class='buttonSpacer'><input type='submit' class='selOutputText' name='+-i2slrOutput' value='I2S(±L/±R)'/></div>";
+                                                                                                echo "<div class='buttonSpacer'><input type='submit' class='selOutputText' name='8xOutput' value='I2S(PCM_8ch)'/></div>";                                                                                                
 
                                                                                                 }
                                                                                         else if ( exec('grep '.escapeshellarg($_GET['']).' /etc/output') == 'SPDIF' ) {
@@ -188,6 +189,7 @@ $filename = "/tmp/update/";
                                                                                                 echo "<div class='buttonSpacer'><input type='submit' class='selOutputText'  name='i2sOutput' value='I2S'/></div>";
                                                                                                 echo "<div class='buttonSpacer'><input type='submit' class='selOutputText' name='i2slrOutput' value='I2S(L/R)'/></div>";
                                                                                                 echo "<div class='buttonSpacer'><input type='submit' class='selOutputText' name='+-i2slrOutput' value='I2S(±L/±R)'/></div>";
+                                                                                                echo "<div class='buttonSpacer'><input type='submit' class='selOutputText' name='8xOutput' value='I2S(PCM_8ch)'/></div>";
                                                                                                 }
                                                                                         else if ( exec('grep '.escapeshellarg($_GET['']).' /etc/output') == 'I2S' ) {
                                                                                                 echo "<div class='buttonSpacer'><input type='submit' class='selOutputText'  name='usbOutput' value=' USB'/></div>";
@@ -195,6 +197,7 @@ $filename = "/tmp/update/";
                                                                                                 echo "<div class='buttonSpacer'><span class='unselOutputText'>I2S</span></div>";
                                                                                                 echo "<div class='buttonSpacer'><input type='submit' class='selOutputText' name='i2slrOutput' value='I2S(L/R)'/></div>";
                                                                                                 echo "<div class='buttonSpacer'><input type='submit' class='selOutputText' name='+-i2slrOutput' value='I2S(±L/±R)'/></div>";
+                                                                                                echo "<div class='buttonSpacer'><input type='submit' class='selOutputText' name='8xOutput' value='I2S(PCM_8ch)'/></div>";
                                                                                                 }
 
                                                                                         else if ( exec('grep '.escapeshellarg($_GET['']).' /etc/output') == 'I2SLR' ) {
@@ -203,6 +206,7 @@ $filename = "/tmp/update/";
                                                                                                 echo "<div class='buttonSpacer'><input type='submit' class='selOutputText'  name='i2sOutput' value='I2S'/></div>";
                                                                                                 echo "<div class='buttonSpacer'><span class='unselOutputText'>I2S(L/R)</span></div>";
                                                                                                 echo "<div class='buttonSpacer'><input type='submit' class='selOutputText' name='+-i2slrOutput' value='I2S(±L/±R)'/></div>";
+                                                                                                echo "<div class='buttonSpacer'><input type='submit' class='selOutputText' name='8xOutput' value='I2S(PCM_8ch)'/></div>";
                                                                                                 }
                                                                                         else if ( exec('grep '.escapeshellarg($_GET['']).' /etc/output') == '+-I2SLR' ) {
                                                                                                 echo "<div class='buttonSpacer'><input type='submit' class='selOutputText'  name='usbOutput' value='USB'/></div>";
@@ -210,7 +214,17 @@ $filename = "/tmp/update/";
                                                                                                 echo "<div class='buttonSpacer'><input type='submit' class='selOutputText'  name='i2sOutput' value='I2S'/></div>";
                                                                                                 echo "<div class='buttonSpacer'><input type='submit' class='selOutputText' name='i2slrOutput' value='I2S(L/R)'/></div>";
                                                                                                 echo "<div class='buttonSpacer'><span class='unselOutputText'>I2S(±L/±R)</span></div>";
+                                                                                                echo "<div class='buttonSpacer'><input type='submit' class='selOutputText' name='8xOutput' value='I2S(PCM_8ch)'/></div>";
                                                                                                 }
+                                                                                        else if ( exec('grep '.escapeshellarg($_GET['']).' /etc/output') == '8x' ) {
+                                                                                                echo "<div class='buttonSpacer'><input type='submit' class='selOutputText'  name='usbOutput' value='USB'/></div>";
+                                                                                                echo "<div class='buttonSpacer'><input type='submit' class='selOutputText'  name='spdifOutput' value='SPDIF'/></div>";
+                                                                                                echo "<div class='buttonSpacer'><input type='submit' class='selOutputText'  name='i2sOutput' value='I2S'/></div>";
+                                                                                                echo "<div class='buttonSpacer'><input type='submit' class='selOutputText' name='i2slrOutput' value='I2S(L/R)'/></div>";
+                                                                                                echo "<div class='buttonSpacer'><input type='submit' class='selOutputText' name='+-i2slrOutput' value='I2S(±L/±R)'/></div>";                                                                                                
+                                                                                                echo "<div class='buttonSpacer'><span class='unselOutputText'>I2S(PCM_8ch)</span></div>";
+                                                                                                }
+
                                                                                                 
                                                                                 } else {
                                                                                         echo "<div class='buttonSpacer'><input type='submit' class='selOutputText'  name='usbOutput' value='USB'/></div>";
@@ -218,6 +232,7 @@ $filename = "/tmp/update/";
                                                                                         echo "<div class='buttonSpacer'><span class='unselOutputText'>I2S</span></div>";
                                                                                         echo "<div class='buttonSpacer'><input type='submit' class='selOutputText'  name='i2srlOutput' value='I2S(R/L)'/></div>";
                                                                                         echo "<div class='buttonSpacer'><input type='submit' class='selOutputText'  name='+-i2srlOutput' value='I2S(±L/±R)'/></div>";
+                                                                                        echo "<div class='buttonSpacer'><input type='submit' class='selOutputText'  name='8xOutput' value='I2S(PCM_8ch)'/></div>";
                                                                                 }
                                                                                 echo "<br>" ;
                                                                                 ?>
@@ -285,7 +300,7 @@ $filename = "/tmp/update/";
 						
 						
 						<div class='row'>
-								<span class="title">ver.</span>
+								<span class="title">ver. 09.05.2024</span>
 								<div id='upd'>
 									<form method="post">
 										<?php
@@ -310,21 +325,20 @@ $filename = "/tmp/update/";
                 /etc/rc.pure/S95aprenderer stop ;
                 rm /etc/init.d/S95* ;
                 /etc/rc.pure/S95tidal stop ;
-                cp /etc/rc.pure/S95naa /etc/init.d/ && sync ; 
-                /etc/rc.pure/S95naa start ;
-                /opt/unmute.sh` ;
+                ln -s /etc/rc.pure/S95naa /etc/init.d/` ;
                 }
+                shell_exec("/usr/sbin/networkaudiod 2>&1 | /usr/sbin/gpio28 2>/dev/null >/dev/null &");
+		exec ("/opt/unmute.sh");
     		echo '<script type="text/javascript">removeSelButtons();</script>';
 		echo '<script type="text/javascript">document.getElementById("naaButton").classList.remove("unselButton"); document.getElementById("naaButton").classList.add("selButton");</script>';
 		echo '<script type="text/javascript">document.getElementById("naaText").classList.remove("unselButtonText"); document.getElementById("naaText").classList.add("selButtonText");</script>';
-		echo '<script type="text/javascript">console.log("button1");</script>';
 	} else if(isset($_POST['raatButton'])){ 
 		{`/opt/mute.sh ;
 		killall -9 networkaudiod mpd upmpdcli shairport-sync squeezelite spotifyd librespot scream raat_app;
 		/etc/rc.pure/S95aprenderer stop ;
 		rm /etc/init.d/S95* ;
 		/etc/rc.pure/S95tidal stop ;
-		cp /etc/rc.pure/S95roonready /etc/init.d/ && sync ; 
+		ln -s /etc/rc.pure/S95roonready /etc/init.d/ ; 
 		/etc/rc.pure/S95roonready start ;
 		/opt/unmute.sh` ;
 		}
@@ -337,7 +351,7 @@ $filename = "/tmp/update/";
     		/etc/rc.pure/S95aprenderer stop ;
 		rm /etc/init.d/S95* ;
 		/etc/rc.pure/S95tidal stop ;
-                cp /etc/rc.pure/S95mpd /etc/init.d/ ; cp /etc/rc.pure/S95upmpdcli /etc/init.d/ && sync ;
+                ln -s /etc/rc.pure/S95mpd /etc/init.d/ ; ln -s /etc/rc.pure/S95upmpdcli /etc/init.d/ ;
                 /etc/rc.pure/S95mpd start ; /etc/rc.pure/S95upmpdcli start ;
                 renice 0 -u upmpdcli ;
 		/opt/unmute.sh` ;
@@ -351,7 +365,7 @@ $filename = "/tmp/update/";
 		/etc/rc.pure/S95aprenderer stop ;
 		rm /etc/init.d/S95* ;
 		/etc/rc.pure/S95tidal stop ;
-                cp /etc/rc.pure/S95aprenderer /etc/init.d/ && sync ; 
+                ln -s /etc/rc.pure/S95aprenderer /etc/init.d/ ; 
                 /etc/init.d/S95aprenderer start ;
                 /opt/unmute.sh` ;
                 }
@@ -365,7 +379,7 @@ $filename = "/tmp/update/";
 		/etc/rc.pure/S95aprenderer stop ;
 		rm /etc/init.d/S95* ;
 		/etc/rc.pure/S95tidal stop ;
-		cp /etc/rc.pure/S95shairport-sync /etc/init.d/ && sync ; 
+		ln -s /etc/rc.pure/S95shairport-sync /etc/init.d/ ; 
 		/etc/init.d/S95shairport-sync start ;
 		/opt/unmute.sh` ;
 		}
@@ -378,7 +392,7 @@ $filename = "/tmp/update/";
 		/etc/rc.pure/S95aprenderer stop ;
 		rm /etc/init.d/S95* ;
 		/etc/rc.pure/S95tidal stop ;
-		cp /etc/rc.pure/S95squeezelite /etc/init.d/ && sync ; 
+		ln -s /etc/rc.pure/S95squeezelite /etc/init.d/ ; 
 		/etc/init.d/S95squeezelite start ;
 		/opt/unmute.sh` ;
 		}
@@ -391,7 +405,7 @@ $filename = "/tmp/update/";
 		/etc/rc.pure/S95aprenderer stop ;
 		rm /etc/init.d/S95* ;
 		/etc/rc.pure/S95tidal stop ;
-		cp /etc/rc.pure/S95spotify /etc/init.d/ && sync ; 
+		ln -s /etc/rc.pure/S95spotify /etc/init.d/ ; 
 		/etc/rc.pure/S95spotify start ;
 		/opt/unmute.sh` ;
 		}
@@ -404,7 +418,7 @@ $filename = "/tmp/update/";
 		/etc/rc.pure/S95aprenderer stop ;
 		rm /etc/init.d/S95* ;
 		/etc/rc.pure/S95tidal stop ;
-		cp /etc/rc.pure/S95scream /etc/init.d/ && sync ; 
+		ln -s /etc/rc.pure/S95scream /etc/init.d/ ; 
 		nohup chrt -f 40 /usr/sbin/scream > /dev/null 2>&1 &
 		/opt/unmute.sh ` ; 
 		}
@@ -417,7 +431,7 @@ $filename = "/tmp/update/";
 		/etc/rc.pure/S95aprenderer stop ;
 		/etc/rc.pure/S95tidal stop ;
 		rm /etc/init.d/S95* ;
-		cp /etc/rc.pure/S95tidal /etc/init.d/ && sync ; 
+		ln -s /etc/rc.pure/S95tidal /etc/init.d/ ; 
 		/etc/rc.pure/S95tidal start ; 
 		/opt/unmute.sh` ;
 		}
@@ -427,28 +441,33 @@ $filename = "/tmp/update/";
         
         } else if(isset($_POST['i2sOutput']) && $_POST["i2sOutput"] != "" ){
                 echo '<script type="text/javascript">updatePage();</script>';
-                echo '<script type="text/javascript">setTimeout(function() {getUpdateOutput(); }, 3000);</script>';
+                echo '<script type="text/javascript">setTimeout(function() {getUpdateOutput(); }, 2000);</script>';
                 exec ('/opt/to_i2s.sh' . '>/dev/null &');
         
         } else if(isset($_POST['i2slrOutput']) && $_POST["i2slrOutput"] != "" ){
                 echo '<script type="text/javascript">updatePage();</script>';
-                echo '<script type="text/javascript">setTimeout(function() {getUpdateOutput(); }, 3000);</script>';
+                echo '<script type="text/javascript">setTimeout(function() {getUpdateOutput(); }, 1500);</script>';
                 exec ('/opt/to_i2slr.sh' . '>/dev/null &');
         
         } else if(isset($_POST['+-i2slrOutput']) && $_POST["+-i2slrOutput"] != "" ){
                 echo '<script type="text/javascript">updatePage();</script>';
-                echo '<script type="text/javascript">setTimeout(function() {getUpdateOutput(); }, 3000);</script>';
+                echo '<script type="text/javascript">setTimeout(function() {getUpdateOutput(); }, 1500);</script>';
                 exec ('/opt/to_+-i2slr.sh' . '>/dev/null &');
         
         } else if(isset($_POST['spdifOutput']) && $_POST["spdifOutput"] != "" ){
                 echo '<script type="text/javascript">updatePage();</script>';
-                echo '<script type="text/javascript">setTimeout(function() {getUpdateOutput(); }, 3000);</script>';
+                echo '<script type="text/javascript">setTimeout(function() {getUpdateOutput(); }, 1500);</script>';
                 exec ('/opt/to_spdif.sh' . '>/dev/null &');
         
         } else if(isset($_POST['usbOutput']) && $_POST["usbOutput"] != "" ){
                 echo '<script type="text/javascript">updatePage();</script>';
-                echo '<script type="text/javascript">setTimeout(function() {getUpdateOutput(); }, 3000);</script>';
+                echo '<script type="text/javascript">setTimeout(function() {getUpdateOutput(); }, 1500);</script>';
                 exec ('/opt/to_usb.sh' . '>/dev/null &');
+
+        } else if(isset($_POST['8xOutput']) && $_POST["8xOutput"] != "" ){
+                echo '<script type="text/javascript">updatePage();</script>';
+                echo '<script type="text/javascript">setTimeout(function() {getUpdateOutput(); }, 1500);</script>';
+                exec ('/opt/to_8x.sh' . '>/dev/null &');
 	
 	} else if(isset($_POST['updateFirmW']) && $_POST["updateFirmW"] != "" ){
 		echo '<script type="text/javascript">updatePage();</script>';
@@ -457,7 +476,7 @@ $filename = "/tmp/update/";
 	
 	} else if(isset($_POST['hostname']) && $_POST["hostname"] != "" ){
 		echo '<script type="text/javascript">updatePage();</script>';
-		echo '<script type="text/javascript">setTimeout(function() {getUpdateOutput(); }, 3000);</script>';
+		echo '<script type="text/javascript">setTimeout(function() {getUpdateOutput(); }, 2500);</script>';
 		$name = $_POST["hostN"] ;
 		exec ( 'echo '.$name.' > /etc/hostname' );
                 exec ('/opt/reboot.sh' . '>/dev/null &');
@@ -490,4 +509,20 @@ include ($_SERVER['DOCUMENT_ROOT']."/var/www/plugins.php");
 
 
 
- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

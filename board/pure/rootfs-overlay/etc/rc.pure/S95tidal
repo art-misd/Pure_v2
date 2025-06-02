@@ -12,8 +12,19 @@ start() {
     sed -i 's/sudo -u root/sudo -u pure/g' /usr/bin/start_tc
     fi
 
+
+
     renice 0 -u dbus
-    start-stop-daemon --start --quiet --background --exec /usr/bin/start_tc 
+#    start-stop-daemon --start --quiet --background --exec /usr/bin/start_tc 
+
+if curl -s http://ipwhois.app/json/ | grep -q  '"country_code":"RU"' ; then
+    start-stop-daemon --start --quiet --background --exec /usr/bin/proxychains4 /usr/bin/start_tc  \
+    && echo "OK" || echo "FAIL"
+else
+    start-stop-daemon --start --quiet --background --exec /usr/bin/start_tc  \
+    && echo "OK" || echo "FAIL"
+fi
+
 
 
 sleep 0.5

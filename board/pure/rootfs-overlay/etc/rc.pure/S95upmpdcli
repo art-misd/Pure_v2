@@ -7,10 +7,12 @@ DAEMON_ARGS="-D -c $CONFFILE"
 
 
 start() {
-        printf "Starting $NAME: "
+        /usr/bin/sntp -sS pool.ntp.org
+	printf "Starting $NAME: "
 	NAME=`hostname`_`ifconfig eth0 | awk '/inet addr/{print substr($2,6)}'`
 	sed -i "s/^friendlyname.*/friendlyname = $NAME/" /etc/upmpdcli.conf
-	mkdir -p /var/cache/upmpdcli/ohcreds
+test -d /var/cache/upmpdcli || ln -s /etc/upmpdcli /var/cache/upmpdcli
+chmod 777 /etc/upmpdcli/ohcreds
 test -f /var/cache/upmpdcli/ohcreds/credkey.pem || \
 echo "-----BEGIN RSA PRIVATE KEY-----
 MIIJKgIBAAKCAgEA0bCAntjiRJZhYOLOz04Krlqga25VfKoKh4JujjdnscwDxysp

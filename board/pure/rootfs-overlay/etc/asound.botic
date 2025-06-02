@@ -1,3 +1,0 @@
-pcm.!default.type plug;
-pcm.default.slave.pcm.type hw;
-pcm.default.slave.pcm.card 0;

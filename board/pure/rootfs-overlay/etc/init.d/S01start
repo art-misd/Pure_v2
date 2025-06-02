@@ -6,6 +6,9 @@ case "$1" in
     echo 49 > /sys/class/gpio/export
     echo out > /sys/class/gpio/gpio49/direction
     echo 1 > /sys/class/gpio/gpio49/value
+    echo 113 > /sys/class/gpio/export
+    echo out > /sys/class/gpio/gpio113/direction
+    echo 1 > /sys/class/gpio/gpio49/value
     test -f /etc/init.d/S10mdev && rm -f /etc/init.d/S10mdev
     rm -f /etc/init.d/S90* ; rm -f /etc/rc.pure/S90*
     /sbin/mdev -s
@@ -24,7 +27,7 @@ ls /proc/asound/card0 && /opt/mute.sh ; /usr/bin/aplay /opt/silent_quarter-secon
     test -f /etc/output || echo USB > /etc/output
     echo "nameserver 1.1.1.1" >> /tmp/resolv.conf
     echo "nameserver 8.8.8.8" >> /tmp/resolv.conf
-    grep -q "5.10.131" /proc/version && echo USB > /etc/output
+    grep -q "5.10.168" /proc/version && echo USB > /etc/output
     chmod 777 /run
     mkdir -p /tmp/db/dhcpcd
     chmod 777 /tmp/db/dhcpcd

@@ -1,6 +1,7 @@
 <?php
 $update = 0;
 include 'variables.php';
+include 'raatCopfig.php';
 ?>
 <script src="javascript.js"></script>
 <script type="text/javascript">

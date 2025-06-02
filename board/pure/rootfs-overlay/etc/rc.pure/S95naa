@@ -2,11 +2,12 @@
 
 start() {
     printf "Starting NAA: "
-    /usr/sbin/networkaudiod > /dev/null 2>&1 &
-    chrt -f 40 `pidof networkaudiod`
+    /usr/sbin/networkaudiod 2>&1 | /usr/sbin/gpio28 &
     }
 stop() {
     killall -9 networkaudiod
+    killall -9 gpio28
+    /opt/unmute.sh
 }
 restart() {
 	stop
