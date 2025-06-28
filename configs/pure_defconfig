@@ -1,11 +1,11 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Buildroot -gcaa1ad0-dirty Configuration
+# Buildroot -g6697b1a-dirty Configuration
 #
 BR2_HAVE_DOT_CONFIG=y
 BR2_EXTERNAL_NAMES="PURE"
 BR2_EXTERNAL_PURE_PATH="/home/art/bbb/Pure_v2"
-BR2_EXTERNAL_PURE_VERSION="-gcaa1ad0-dirty"
+BR2_EXTERNAL_PURE_VERSION="-g6697b1a-dirty"
 BR2_HOST_GCC_AT_LEAST_4_9=y
 BR2_HOST_GCC_AT_LEAST_5=y
 BR2_HOST_GCC_AT_LEAST_6=y
@@ -651,10 +651,10 @@ BR2_PACKAGE_BZIP2=y
 # BR2_PACKAGE_PIGZ is not set
 # BR2_PACKAGE_PIXZ is not set
 # BR2_PACKAGE_UNRAR is not set
-BR2_PACKAGE_UNZIP=y
+# BR2_PACKAGE_UNZIP is not set
 # BR2_PACKAGE_XZ is not set
-BR2_PACKAGE_ZIP=y
-BR2_PACKAGE_ZSTD=y
+# BR2_PACKAGE_ZIP is not set
+# BR2_PACKAGE_ZSTD is not set
 
 #
 # Debugging, profiling and benchmark
