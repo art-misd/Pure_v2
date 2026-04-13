@@ -1,0 +1,5 @@
+#!/bin/sh
+
+for pid in $(ps -e | grep 'irq/53-musb' | awk '{print $1}'); do
+    chrt -f -p 90 $pid
+done
