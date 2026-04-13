@@ -5,7 +5,8 @@
 git clone https://github.com/buildroot/buildroot.git
 cd buildroot
 
-#git checkout 39928bc9a6a92f0b4336cbef0dff492406fca576 # stable buildroot 2025.02.03
-
 make BR2_EXTERNAL=../ pure_defconfig
+
+export M4=/usr/bin/m4 # for build libtool and etc
+
 make -j$(nproc)

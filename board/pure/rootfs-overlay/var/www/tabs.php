@@ -301,13 +301,6 @@ $filename = "/tmp/update/";
 						
 						<div class='row'>
 								<span class="title">ver.</span>
-								<div id='upd'>
-									<form method="post">
-										<?php
-										echo "<div><input type='submit' class='selOutputText' id='update' name='updateFirmW' value='Upgrade to latest version' /></div>";
-										?>
-									</form>
-								</div>
 						</div>
 					</div>
 					<div id='sign'>
