@@ -7,11 +7,12 @@ Audio endpoint for NAA, RAAT, UPNP, AirPlay, LMS, Spotify Connect, TidalConnect 
 streaming. This firmware supports three types of output - USB.
 The launch is possible both from SD and from internal eMMC memory. 
 
-This firmware has standard user settings via the web interface http://pure.local \
-Shell access - root/root \
+This firmware has standard user settings via the web interface http://pure.local
+Shell access - root/root
 
 ### Build firmware 
 
 ./make_pure.sh 
 
-After successful compilation, the SD image will be located in buildroot/output/images/Pure_XX_XX_202X.gz. 
+After successful compilation, the SD image will be located in 
+buildroot/output/images/Pure_XX_XX_202X.gz. 
