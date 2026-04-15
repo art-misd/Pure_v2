@@ -9,7 +9,6 @@ The launch is possible both from SD and from internal eMMC memory.
 
 This firmware has standard user settings via the web interface http://pure.local \
 Shell access - root/root \
-Support for this firmware - https://t.me/pure_os
 
 ### Build firmware 
 
