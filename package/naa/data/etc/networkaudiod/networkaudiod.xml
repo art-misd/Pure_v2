@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<networkaudiod>
+	<!-- old custom UAC2 -->
+	<!--<input name="USB Audio Class 2" channels="2" device="uac2" format="auto" pack_sdm="1" period_time="100" type="uac2"/>-->
+	<!-- new kernel UAC2 gadget -->
+	<input name="USB Audio (DWC3)" device="hw:CARD=UAC2Gadget,DEV=0" samplerate="0" channels="2" format="auto" pack_sdm="1" period_time="100" sync_element="Capture Rate" sync_hctl="1" script="naa-start-uac-gadget.sh 'dwc3.1.auto'"/>
+	<!--<input name="USB Audio (RPi4)" device="hw:CARD=UAC2Gadget,DEV=0" samplerate="0" channels="2" format="auto" pack_sdm="1" period_time="100" sync_element="Capture Rate" sync_hctl="1" script="naa-start-uac-gadget.sh 'fe980000.usb'"/>
+	<input name="USB Audio (RPi5)" device="hw:CARD=UAC2Gadget,DEV=0" samplerate="0" channels="2" format="auto" pack_sdm="1" period_time="100" sync_element="Capture Rate" sync_hctl="1" script="naa-start-uac-gadget.sh '1000480000.usb'"/>-->
+	<!-- RME devices -->
+	<!--<input name="RME HDSPe AIO (Analog)" device="hw:CARD=HDSPMx,DEV=0" channels="2" format="pcm" period_time="0" channel_offset="0" rate_element="Internal Clock" script="amixer -D hw:HDSPMx sset 'System Clock Mode' 'Master'"/>
+	<input name="RME HDSPe AIO (Toslink)" device="hw:CARD=HDSPMx,DEV=0" samplerate="0" channels="2" format="pcm" period_time="0" channel_offset="4" sync_element="SPDIF Frequency" rate_element="Internal Clock" script="amixer -D hw:HDSPMx sset 'System Clock Mode' 'AutoSync' ; amixer -D hw:HDSPMx sset 'Preferred Sync Reference' 'SPDIF' ; amixer -D hw:HDSPMx sset 'S/PDIF Input' 'Optical'"/>
+	<input name="RME HDSPe AIO (Coaxial)" device="hw:CARD=HDSPMx,DEV=0" samplerate="0" channels="2" format="pcm" period_time="0" channel_offset="4" sync_element="SPDIF Frequency" rate_element="Internal Clock" script="amixer -D hw:HDSPMx sset 'System Clock Mode' 'AutoSync' ; amixer -D hw:HDSPMx sset 'Preferred Sync Reference' 'SPDIF' ; amixer -D hw:HDSPMx sset 'S/PDIF Input' 'Coaxial'"/>
+	<input name="RME HDSPe AIO (AES)" device="hw:CARD=HDSPMx,DEV=0" samplerate="0" channels="2" format="pcm" period_time="0" channel_offset="2" sync_element="AES Frequency" rate_element="Internal Clock" script="amixer -D hw:HDSPMx sset 'System Clock Mode' 'AutoSync' ; amixer -D hw:HDSPMx sset 'Preferred Sync Reference' 'AES'"/>-->
+	<!--<input channel_offset="0" channels="2" device="hw:CARD=Pro,DEV=0" format="auto" name="ADI-2 Pro (Analog)" pack_sdm="1" period_time="100"/>
+	<input channel_offset="2" channels="2" device="hw:CARD=Pro,DEV=0" format="auto" name="ADI-2 Pro (AES)" pack_sdm="1" period_time="100" samplerate="0" sync_element="AES Rate" sync_hctl="1"/>
+	<input channel_offset="4" channels="2" device="hw:CARD=Pro,DEV=0" format="auto" name="ADI-2 Pro (SPDIF)" pack_sdm="1" period_time="100" samplerate="0" sync_element="SPDIF Rate" sync_hctl="1"/>-->
+	<!-- miniDSP USBStreamer -->
+	<input channels="2" device="hw:CARD=USBStreamer,DEV=0" name="miniDSP USBStreamer" format="auto" pack_sdm="1" pre_script="amixer -D hw:CARD=USBStreamer sset 'miniDSP Clock Selector Clock Source' 'miniDSP Internal Clock'" post_script="amixer -D hw:CARD=USBStreamer sset 'miniDSP Clock Selector Clock Source' 'miniDSP TOSLINK Clock'"/>
+	<!-- HifiBerry Digi+ I/O -->
+	<!--<input channels="2" device="hw:CARD=sndrpihifiberry,DEV=0" format="auto" name="HifiBerry Digi+IO" nperiods="4" pack_sdm="1" period_time="100"/>-->
+</networkaudiod>
